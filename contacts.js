@@ -1,10 +1,5 @@
 const fs = require('fs');
-const readline = require('readline');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+const chalk = require('chalk');
 
 // Cek Folder "data/" Jika Tidak Ada Buat Folder-nya
 const dirPath = './data';
@@ -22,15 +17,6 @@ if (!fs.existsSync(fileName)) {
     fs.writeFileSync(fileName, "[]", "utf-8");
 }
 
-// Method Pertanyaan (Dibuat Menggunakan Promise)
-const createQuestion = (question) => {
-    return new Promise((resolve, reject) => {
-        rl.question(question, (q) => {
-            resolve(q);
-        })
-    });
-};
-
 // Method Simpan Contact
 const saveContact = (nama, email, ponsel) => {
     const objContact = {
@@ -40,16 +26,19 @@ const saveContact = (nama, email, ponsel) => {
     };
 
     const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
+
+    // Cek Duplikat Data
+    const duplicate = fileData.find((objContact) => objContact.nama === nama);
+    if (duplicate) {
+        console.info((chalk.red.inverse.bold("Kontak Sudah Terdaftar, Gunakan Nama Lain!")));
+        return false;
+    }
+
     fileData.push(objContact);
 
     fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
 
     console.info(`Terimkasih ${nama} Sudah Menginputkan Data Anda!`);
-
-    rl.close();
 }
 
-module.exports = {
-    createQuestion,
-    saveContact
-};
+module.exports = { saveContact };
