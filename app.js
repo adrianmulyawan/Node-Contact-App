@@ -22,20 +22,35 @@ if (!fs.existsSync(fileName)) {
     fs.writeFileSync(fileName, "[]", "utf-8");
 }
 
-rl.question('Masukan Nama: ', (nama) => {
-    rl.question('Masukan Nomor Ponsel: ', (ponsel) => {
-        const objContact = {
-            nama, 
-            ponsel,
-        };
-
-        const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
-        fileData.push(objContact);
-
-        fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
-
-        console.info(`Terimkasih ${nama} Sudah Menginput No Ponsel ${ponsel}`);
-
-        rl.close();
+// Method Pertanyaan (Dibuat Menggunakan Promise)
+const createQuestion = (question) => {
+    return new Promise((resolve, reject) => {
+        rl.question(question, (q) => {
+            resolve(q);
+        })
     });
-});
+};
+
+// Method Utama
+const main = async () => {
+    const nama = await createQuestion("Masukan Nama Anda: ");
+    const email = await createQuestion("Masukan Email Anda: ");
+    const ponsel = await createQuestion("Masukan No Handphone Anda: ");
+
+    const objContact = {
+        nama,
+        email,
+        ponsel,
+    };
+
+    const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
+    fileData.push(objContact);
+
+    fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
+
+    console.info(`Terimkasih ${nama} Sudah Menginput No Ponsel ${ponsel}`);
+
+    rl.close();
+};
+
+main();
