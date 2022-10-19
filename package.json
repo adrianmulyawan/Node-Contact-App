@@ -1,0 +1,22 @@
+{
+  "name": "contact-app",
+  "version": "1.0.0",
+  "description": "Create Command Line Contact App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianmulyawan/Node-Contact-App.git"
+  },
+  "author": "Adrian Mulyawan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianmulyawan/Node-Contact-App/issues"
+  },
+  "homepage": "https://github.com/adrianmulyawan/Node-Contact-App#readme",
+  "dependencies": {
+    "yargs": "^17.6.0"
+  }
+}
