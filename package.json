@@ -18,6 +18,7 @@
   "homepage": "https://github.com/adrianmulyawan/Node-Contact-App#readme",
   "dependencies": {
     "chalk": "^4.1.0",
+    "validator": "^13.7.0",
     "yargs": "^17.6.0"
   }
 }
