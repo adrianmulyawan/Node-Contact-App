@@ -1,5 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
+const validator = require('validator');
 
 // Cek Folder "data/" Jika Tidak Ada Buat Folder-nya
 const dirPath = './data';
@@ -34,11 +35,25 @@ const saveContact = (nama, email, ponsel) => {
         return false;
     }
 
+    // Cek Email (Valid / Tidak)
+    if (email) {
+        if (!validator.isEmail(email)) {
+            console.info((chalk.red.inverse.bold("Email Tidak Valid!")));
+            return false;
+        }
+    }
+
+    // Cek Nomor HP
+    if (!validator.isMobilePhone(ponsel, 'id-ID')) {
+        console.info((chalk.red.inverse.bold("No Handhphone Tidak Valid!")));
+        return false;
+    }
+
     fileData.push(objContact);
 
     fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
 
-    console.info(`Terimkasih ${nama} Sudah Menginputkan Data Anda!`);
+    console.info(chalk.green.inverse.bold(`Terimkasih ${nama} Sudah Menginputkan Data Anda!`));
 }
 
 module.exports = { saveContact };
