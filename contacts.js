@@ -44,7 +44,7 @@ const saveContact = (nama, email, ponsel) => {
 
     fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
 
-    console.info(`Terimkasih ${nama} Sudah Menginput No Ponsel ${ponsel}`);
+    console.info(`Terimkasih ${nama} Sudah Menginputkan Data Anda!`);
 
     rl.close();
 }
