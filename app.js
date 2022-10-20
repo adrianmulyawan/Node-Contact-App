@@ -2,7 +2,7 @@
 // > Yargs: membangun alat baris perintah interaktif, dengan menguraikan argumen dan menghasilkan antarmuka pengguna yang elegan.
 const yargs = require('yargs');
 // > Local Module 
-const { saveContact, showContacts } = require("./contacts");
+const { saveContact, showContacts, showDetailContact } = require("./contacts");
 
 
 // > Menggunakan Packages Yargs: Untuk Menambahkan Contact Baru
@@ -59,7 +59,7 @@ yargs.command({
         },
     },
     handler: (argv) => {
-        
+        showDetailContact(argv);
     }
 }).demandCommand();
 
