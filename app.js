@@ -2,7 +2,12 @@
 // > Yargs: membangun alat baris perintah interaktif, dengan menguraikan argumen dan menghasilkan antarmuka pengguna yang elegan.
 const yargs = require('yargs');
 // > Local Module 
-const { saveContact, showContacts, showDetailContact } = require("./contacts");
+const {
+    saveContact,
+    showContacts,
+    showDetailContact,
+    removeContact
+} = require("./contacts");
 
 
 // > Menggunakan Packages Yargs: Untuk Menambahkan Contact Baru
@@ -60,6 +65,22 @@ yargs.command({
     },
     handler: (argv) => {
         showDetailContact(argv);
+    }
+}).demandCommand();
+
+// > Menggunakan Packages Yargs: Menghapus Kontak
+yargs.command({
+    command: 'remove',
+    description: 'Remove Contacts Filter By Name',
+    builder: {
+        nama: {
+            describe: "Full Name",
+            demandOption: true,
+            type: "string",
+        },
+    },
+    handler: (argv) => {
+        removeContact(argv);
     }
 }).demandCommand();
 
