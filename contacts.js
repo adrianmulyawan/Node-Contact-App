@@ -95,8 +95,29 @@ const showDetailContact = (nama) => {
     console.info(chalk.cyan.inverse.bold(`No Handphone: ${contact.ponsel}`));
 }
 
+// Method Menghapus Contact 
+const removeContact = (nama) => {
+    const contacts = loadContacts();
+
+    // > Buat array untuk menampung data yang tidak dihapus
+    const newContacts = contacts.filter((contact) => {
+        return contact.nama.toLowerCase() !== nama.nama.toLowerCase();
+    });
+
+    // > Cek apakah nama yang ingin dihapus ada
+    if (contacts.length === newContacts.length) {
+        console.info(chalk.red.inverse.bold(`${nama.nama} Tidak Ditemukan!`));
+        return false;
+    }
+
+    fs.writeFileSync('data/contacts.json', JSON.stringify(newContacts, null, 2));
+
+    console.info(chalk.green.inverse.bold(`Terimkasih, Kontak ${nama.nama} Sudah Berhasil Dihapus!`));
+}
+
 module.exports = {
     saveContact,
     showContacts,
-    showDetailContact
+    showDetailContact,
+    removeContact,
 };
