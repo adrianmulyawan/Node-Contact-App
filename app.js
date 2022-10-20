@@ -47,5 +47,21 @@ yargs.command({
     }
 }).demandCommand();
 
+// > Menggunakan Packages Yargs: Menampilkan Detail Kontak
+yargs.command({
+    command: 'detail',
+    description: 'Show Detail Contacts Filter By Name',
+    builder: {
+        nama: {
+            describe: "Full Name",
+            demandOption: true,
+            type: "string",
+        },
+    },
+    handler: (argv) => {
+        
+    }
+}).demandCommand();
+
 // > Jalankan Yargs
 yargs.parse();
