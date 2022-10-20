@@ -74,4 +74,29 @@ const showContacts = () => {
     });
 }
 
-module.exports = { saveContact, showContacts };
+// Menampilkan Detail Contact
+const showDetailContact = (nama) => {
+    const contacts = loadContacts();
+
+    // > Cek nama yang dimasukan dengan data di contacts.json
+    const contact = contacts.find((contact) => {
+        return contact.nama.toLowerCase() == nama.nama.toLowerCase();
+    });
+
+    // > Jika tidak ditemukan
+    if (!contact) {
+        console.info(chalk.red.inverse.bold(`${nama.nama} Tidak Ditemukan!`));
+        return false;
+    }
+
+    // > Jika ditemukan
+    console.info(chalk.cyan.inverse.bold(`${contact.nama}`));
+    console.info(chalk.cyan.inverse.bold(`${contact.email}`));
+    console.info(chalk.cyan.inverse.bold(`${contact.ponsel}`));
+}
+
+module.exports = {
+    saveContact,
+    showContacts,
+    showDetailContact
+};
