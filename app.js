@@ -36,7 +36,16 @@ yargs.command({
 
         saveContact(contact.nama, contact.email, contact.ponsel);
     }
-});
+}).demandCommand();
+
+// > Menggunakan Packages Yargs: Menampilkan Daftar Kontak
+yargs.command({
+    command: 'show',
+    description: 'Show All Contacts',
+    handler: () => {
+        showContacts();
+    }
+}).demandCommand();
 
 // > Jalankan Yargs
 yargs.parse();
