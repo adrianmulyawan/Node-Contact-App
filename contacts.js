@@ -18,6 +18,12 @@ if (!fs.existsSync(fileName)) {
     fs.writeFileSync(fileName, "[]", "utf-8");
 }
 
+// Method Yang Menangani Pembacaan Contact
+const loadContacts = () => {
+    const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
+    return fileData;
+};
+
 // Method Simpan Contact
 const saveContact = (nama, email, ponsel) => {
     const objContact = {
@@ -26,10 +32,11 @@ const saveContact = (nama, email, ponsel) => {
         ponsel,
     };
 
-    const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
+    // const fileData = JSON.parse(fs.readFileSync('data/contacts.json'));
+    const contacts = loadContacts();
 
     // Cek Duplikat Data
-    const duplicate = fileData.find((objContact) => objContact.nama === nama);
+    const duplicate = contacts.find((objContact) => objContact.nama === nama);
     if (duplicate) {
         console.info((chalk.red.inverse.bold("Kontak Sudah Terdaftar, Gunakan Nama Lain!")));
         return false;
@@ -49,11 +56,22 @@ const saveContact = (nama, email, ponsel) => {
         return false;
     }
 
-    fileData.push(objContact);
+    contacts.push(objContact);
 
-    fs.writeFileSync('data/contacts.json', JSON.stringify(fileData, null, 2));
+    fs.writeFileSync('data/contacts.json', JSON.stringify(contacts, null, 2));
 
     console.info(chalk.green.inverse.bold(`Terimkasih ${nama} Sudah Menginputkan Data Anda!`));
 }
 
-module.exports = { saveContact };
+// Method Menampilkan Seluruh Contact
+const showContacts = () => {
+    const contacts = loadContacts();
+
+    console.info(chalk.cyan.inverse.bold(`Daftar Kontak Anda`));
+
+    contacts.forEach((contact, i) => {
+        console.info(`${i + 1}. ${contact.nama} - ${contact.email} - ${contact.ponsel}`);
+    });
+}
+
+module.exports = { saveContact, showContacts };
