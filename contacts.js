@@ -90,9 +90,9 @@ const showDetailContact = (nama) => {
     }
 
     // > Jika ditemukan
-    console.info(chalk.cyan.inverse.bold(`${contact.nama}`));
-    console.info(chalk.cyan.inverse.bold(`${contact.email}`));
-    console.info(chalk.cyan.inverse.bold(`${contact.ponsel}`));
+    console.info(chalk.cyan.inverse.bold(`Nama: ${contact.nama}`));
+    console.info(chalk.cyan.inverse.bold(`Email: ${contact.email}`));
+    console.info(chalk.cyan.inverse.bold(`No Handphone: ${contact.ponsel}`));
 }
 
 module.exports = {
